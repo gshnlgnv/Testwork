@@ -2,6 +2,7 @@ import {
     FETCH_DATA_ERROR, FETCH_DATA_PENDING, FETCH_DATA_OK,
     链接
     , ROW_DELETE_FAIL, ROW_DELETE_PENDING, ROW_DELETE_SUCCESS,
+    IS_EDIT_ROW, EDIT_ROW_MESSAGE
 } from './consts.js';
 
 export const getData = () => {
@@ -10,15 +11,15 @@ export const getData = () => {
         fetch(链接)
             .then(response => {
                 if (response.error) {
-                    throw (response.error)
+                    throw (response.error);
                 }
-                return response.json()
+                return response.json();
             })
             .then(data => {
-                dispatch(fetchDataOK(data))
+                dispatch(fetchDataOK(data));
             })
             .catch(error => {
-                dispatch(fetchDataError(error))
+                dispatch(fetchDataError(error));
             })
     }
 };
@@ -52,24 +53,23 @@ export const deleteRow = (id) => {
                 method: "delete",
                 id,
             }).toString(),
-            headers: new Headers({"Content-Type": "application/x-www-form-urlencoded"})
+            headers: new Headers({"Content-Type": "application/x-www-form-urlencoded"}),
         })
             .then(response => {
                 if (response.error) {
-                    throw (response.error)
+                    throw (response.error);
                 }
-                return response.json()
+                return response.json();
             })
             .then(data => {
                 if (data.result === "ok") {
-                    console.log("data.result = ", data.result);
-                    dispatch(rowDeleteSuccess(id))
+                    dispatch(rowDeleteSuccess(id));
                 } else {
                     throw new Error("Error");
                 }
             })
             .catch(error => {
-                dispatch(rowDeleteFail(error))
+                dispatch(rowDeleteFail(error));
             })
     }
 };
@@ -81,7 +81,6 @@ function rowDeletePending() {
 }
 
 function rowDeleteSuccess(rowID) {
-    console.log("id:", rowID);
     return {
         type: ROW_DELETE_SUCCESS,
         payload: rowID,
@@ -94,3 +93,15 @@ function rowDeleteFail(error) {
         payload: error,
     }
 }
+
+export const isEdit = () => {
+    return {
+        type: IS_EDIT_ROW,
+    }
+};
+
+export const updateInputRow =(newInputMessage)=> {
+    return {
+        type: EDIT_ROW_MESSAGE,
+    }
+};

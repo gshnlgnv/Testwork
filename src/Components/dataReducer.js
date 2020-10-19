@@ -1,17 +1,16 @@
 import {
     FETCH_DATA_ERROR, FETCH_DATA_PENDING, FETCH_DATA_OK,
     ROW_DELETE_FAIL, ROW_DELETE_PENDING, ROW_DELETE_SUCCESS,
+    IS_EDIT_ROW, EDIT_ROW_MESSAGE,
 } from './consts';
 
 const initialState = {
     data: [],
     actionChecking: null,
+    isEdit: false,
 };
 
 export const dataReducer = (state = initialState, action) => {
-
-    console.log(state.data);
-
     switch (action.type) {
         case FETCH_DATA_PENDING:
             return {
@@ -45,6 +44,16 @@ export const dataReducer = (state = initialState, action) => {
                     const [id] = item;
                     return id.value !== action.payload
                 } ),
+            };
+        case IS_EDIT_ROW:
+            return {
+                ...state,
+                isEdit: true,
+            };
+        case EDIT_ROW_MESSAGE:
+            return {
+                ...state,
+                //TODO получить обновлённое поле, именно которое мы редактируем
             };
         default:
             return state;

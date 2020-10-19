@@ -1,7 +1,7 @@
 import {
     FETCH_DATA_ERROR, FETCH_DATA_PENDING, FETCH_DATA_OK,
     链接
-    ,ROW_DELETE_FAIL, ROW_DELETE_PENDING, ROW_DELETE_SUCCESS,
+    , ROW_DELETE_FAIL, ROW_DELETE_PENDING, ROW_DELETE_SUCCESS,
 } from './consts.js';
 
 export const getData = () => {
@@ -43,14 +43,16 @@ function fetchDataError(error) {
     }
 }
 
-export const deleteRow = () => {
+export const deleteRow = (id) => {
     return dispatch => {
         dispatch(rowDeletePending());
         fetch(链接, {
-            method: "DELETE",
-            // actions.js:46 DELETE https://frontend-test.netbox.ru/ 405
-            // body: JSON.stringify(data),  // data ??
-            // headers: new Headers({"Content-Type": "application/json"})
+            method: "POST",
+            body: new URLSearchParams({
+                method: "delete",
+                id,
+            }).toString(),
+            headers: new Headers({"Content-Type": "application/x-www-form-urlencoded"})
         })
             .then(response => {
                 if (response.error) {
@@ -59,7 +61,12 @@ export const deleteRow = () => {
                 return response.json()
             })
             .then(data => {
-                dispatch(rowDeleteSuccess(data))
+                if (data.result === "ok") {
+                    console.log("data.result = ", data.result);
+                    dispatch(rowDeleteSuccess(id))
+                } else {
+                    throw new Error("Error");
+                }
             })
             .catch(error => {
                 dispatch(rowDeleteFail(error))
@@ -74,6 +81,7 @@ function rowDeletePending() {
 }
 
 function rowDeleteSuccess(rowID) {
+    console.log("id:", rowID);
     return {
         type: ROW_DELETE_SUCCESS,
         payload: rowID,

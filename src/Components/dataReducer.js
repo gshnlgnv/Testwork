@@ -10,7 +10,7 @@ const initialState = {
 
 export const dataReducer = (state = initialState, action) => {
 
-    console.log("data =", state.data);
+    console.log(state.data);
 
     switch (action.type) {
         case FETCH_DATA_PENDING:
@@ -41,9 +41,10 @@ export const dataReducer = (state = initialState, action) => {
         case ROW_DELETE_SUCCESS:
             return {
               ...state,
-                data: state.data.map( item => {
-                    item.map( row => row.value !== action.payload)
-                })
+                data: state.data.filter( item => {
+                    const [id] = item;
+                    return id.value !== action.payload
+                } ),
             };
         default:
             return state;

@@ -4,10 +4,10 @@ import {connect} from 'react-redux';
 import {deleteRow, isEdit, updateInputRow} from './actions';
 import {bindActionCreators} from "redux";
 
-function Table(props) {
-    const inputEditRef = React.createRef();
+let inputEditRef = React.createRef();
 
-    const editButton = () => {
+function Table(props) {
+    const editButton = (idNumber) => {
         if (props.isEditRow) {
             return (<button onClick={() => {
                 props.isEdit()
@@ -15,7 +15,7 @@ function Table(props) {
             </button>)
         } else {
             return (<button onClick={() => {
-                props.isEdit()
+                props.isEdit(idNumber);
             }}>edit
             </button>)
         }
@@ -35,34 +35,34 @@ function Table(props) {
             </tr>
             </thead>
             <tbody>
-            {props.data.map(item => (
-                <tr key={Date.now() + item[0].value}>
-                    {item.map(row => (
-                        (props.isEditRow && row.field !== "ID")
-                            ?
-                            <td key={Date.now() + row.value}>
-                                <input
-                                    defaultValue={row.value}
-                                    type="text"
-                                    ref={inputEditRef}
-                                    onChange={() => {
-                                    console.log("i am editing");
-                                    updateInputRow(inputEditRef.current.value)
-                                    //editingRow()
-                                }}/>
-                            </td>
-                            :
-                            <td key={Date.now() + row.value}>{row.value}</td>
-                    ))}
+            {props.data.map(row => (
+                <tr key={row[0].value}>
+                    {row.map(col => {
+                            if (props.isEditRow && col.field !== "ID") {
+                                let inputEditRef = React.createRef();
+                                if (row[0].value === props.idToEdit) {
+                                    return <td key={col.value}>
+                                        <input
+                                            defaultValue={col.value}
+                                            type="text"
+                                            ref={inputEditRef}
+                                            onChange={() => props.updateInputRow(props.idToEdit, col.field, inputEditRef.current.value)}
+                                        />
+                                    </td>
+                                }
+                            }
+                            return <td key={col.value}>{col.value}</td>
+                        }
+                    )}
                     <td>
                         <button onClick={() => {
-                            props.deleteRow(item[0].value);
+                            props.deleteRow(row[0].value);
                         }}>
                             delete
                         </button>
                     </td>
                     <td>
-                        {editButton()}
+                        {editButton(row[0].value)}
                     </td>
                 </tr>
             ))}
@@ -74,10 +74,11 @@ function Table(props) {
 const mapStateToProps = (state) => ({
     data: state.dataReducer.data,
     isEditRow: state.dataReducer.isEdit,
+    idToEdit: state.dataReducer.idToEdit,
 });
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({deleteRow, isEdit}, dispatch)
+    return bindActionCreators({deleteRow, isEdit, updateInputRow}, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

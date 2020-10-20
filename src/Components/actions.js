@@ -94,14 +94,18 @@ function rowDeleteFail(error) {
     }
 }
 
-export const isEdit = () => {
+export const isEdit = (id) => {
     return {
         type: IS_EDIT_ROW,
+        payload: id,
     }
 };
 
-export const updateInputRow =(newInputMessage)=> {
+export const updateInputRow =(id, column, newInputMessage)=> {
     return {
         type: EDIT_ROW_MESSAGE,
+        newMessage: newInputMessage,
+        id: id,
+        column: column,
     }
 };

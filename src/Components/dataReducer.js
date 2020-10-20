@@ -8,6 +8,7 @@ const initialState = {
     data: [],
     actionChecking: null,
     isEdit: false,
+    idToEdit: null,
 };
 
 export const dataReducer = (state = initialState, action) => {
@@ -39,21 +40,32 @@ export const dataReducer = (state = initialState, action) => {
             };
         case ROW_DELETE_SUCCESS:
             return {
-              ...state,
-                data: state.data.filter( item => {
+                ...state,
+                data: state.data.filter(item => {
                     const [id] = item;
                     return id.value !== action.payload
-                } ),
+                }),
             };
         case IS_EDIT_ROW:
             return {
                 ...state,
-                isEdit: true,
+                isEdit: (state.isEdit) ? false : true,
+                idToEdit: action.payload,
             };
         case EDIT_ROW_MESSAGE:
             return {
                 ...state,
-                //TODO получить обновлённое поле, именно которое мы редактируем
+                data: state.data.map(item => {
+                    const [id] = item;
+                    if (id.value === action.id) {
+                        item.map( obj => {
+                            if (obj.field === action.column) {
+                                return obj.value = action.newMessage;
+                            }
+                        })
+                    }
+                    return item;
+                }),
             };
         default:
             return state;

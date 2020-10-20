@@ -1,8 +1,9 @@
 import {
     FETCH_DATA_ERROR, FETCH_DATA_PENDING, FETCH_DATA_OK,
-    链接
-    , ROW_DELETE_FAIL, ROW_DELETE_PENDING, ROW_DELETE_SUCCESS,
-    IS_EDIT_ROW, EDIT_ROW_MESSAGE
+    链接,
+    ROW_DELETE_FAIL, ROW_DELETE_PENDING, ROW_DELETE_SUCCESS,
+    IS_EDIT_ROW, EDIT_ROW_MESSAGE,
+    SAVE_CHANGES_PENDING, SAVE_CHANGES_SUCCESS, SAVE_CHANGES_ERROR,
 } from './consts.js';
 
 export const getData = () => {
@@ -109,3 +110,56 @@ export const updateInputRow =(id, column, newInputMessage)=> {
         column: column,
     }
 };
+
+export const saveChanges = (id, name, age, phone, email) => {
+    return dispatch => {
+        dispatch(saveChangesPending());
+        fetch(链接, {
+            method: "POST",
+            body: new URLSearchParams({
+                method: "update",
+                id,
+                name,
+                age,
+                phone,
+                email
+            }).toString(),
+            headers: new Headers({"Content-Type": "application/x-www-form-urlencoded"})
+        })
+            .then(response => {
+                if (response.error) {
+                    throw (response.error);
+                }
+                return response.json()
+            })
+            .then(result => {
+                if (data.result === "ok") {
+                    dispatch(saveChangesSuccess( newData )) // ??
+                }
+                throw new Error("Error");
+            })
+            .catch(error => {
+                dispatch(saveChangesFail(error));
+            })
+    }
+};
+
+function saveChangesPending() {
+    return {
+        type: SAVE_CHANGES_PENDING,
+    }
+}
+
+function saveChangesSuccess(newData) {  // ??
+    return {
+        type: SAVE_CHANGES_SUCCESS,
+        payload: newData, // ??
+    }
+}
+
+function saveChangesFail(error) {
+    return {
+        type: SAVE_CHANGES_ERROR,
+        payload: error,
+    }
+}

@@ -3,8 +3,12 @@ import './Table.css';
 import {connect} from 'react-redux';
 import {deleteRow, isEdit, updateInputRow, saveChanges, sortDataName, sortDataID} from './actions';
 import {bindActionCreators} from "redux";
+import AddNew from '../Components/AddNew';
 
 function Table(props) {
+
+    console.log("table props.data", props.data);
+
     const collectingDataForUpload = (idNumber) => {
         let arrToServer = [];
 
@@ -38,7 +42,7 @@ function Table(props) {
 
     return (
         <div>
-
+            <AddNew/>
             <table>
                 <thead>
                 <tr>
@@ -55,8 +59,11 @@ function Table(props) {
                 {props.data.map(row => (
                     <tr key={row[0].value}>
                         {row.map(col => {
+
                                 if (props.isEditRow && col.field !== "ID") {
+
                                     let inputEditRef = React.createRef();
+
                                     if (row[0].value === props.idToEdit) {
                                         return <td key={col.value}>
                                             <input

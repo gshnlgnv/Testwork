@@ -14,3 +14,5 @@ export const SORT_DATA_NAME = "SORT_DATA_NAME";
 export const SORT_DATA_ID = "SORT_DATA_ID";
 export const ASC = "ASC";
 export const DESC = "DESC";
+export const MODAL_IS_OPEN ="MODAL_IS_OPEN";
+export const ADD_NEW_ITEM = "ADD_NEW_ITEM";

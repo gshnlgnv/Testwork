@@ -4,6 +4,8 @@ import {
     IS_EDIT_ROW, EDIT_ROW_MESSAGE,
     SORT_DATA_NAME, SORT_DATA_ID,
     ASC, DESC,
+    MODAL_IS_OPEN,
+    ADD_NEW_ITEM,
 } from './consts';
 
 const initialState = {
@@ -12,6 +14,7 @@ const initialState = {
     isEdit: false,
     idToEdit: null,
     sorting: null,
+    modalIsOpen: false,
 };
 
 const sortingNameFunc = (sorting, a, b) => {
@@ -105,6 +108,24 @@ export const dataReducer = (state = initialState, action) => {
                 ...state,
                 data: state.data.concat().sort(sortingIDFunc.bind(this, state.sorting)),
                 sorting: state.sorting === ASC ? DESC : ASC,
+            };
+        case MODAL_IS_OPEN:
+            return {
+                ...state,
+                modalIsOpen: state.modalIsOpen ? false : true,
+            };
+        case ADD_NEW_ITEM:
+            const newPerson = [[
+                {field: "ID", value: Date.now(), type: "integer"},
+                {field: "Name", value: action.name, type: "string"},
+                {field: "Age", value: +action.age, type: "integer"},
+                {field: "Phone", value: action.telephone, type: "string"},
+                {field: "E-mail", value: action.email, type: "string"},
+                ]];
+
+            return {
+               ...state,
+                data: state.data.concat(newPerson),
             };
         default:
             return state;

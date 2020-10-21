@@ -5,6 +5,8 @@ import {
     IS_EDIT_ROW, EDIT_ROW_MESSAGE,
     SAVE_CHANGES_PENDING, SAVE_CHANGES_SUCCESS, SAVE_CHANGES_ERROR,
     SORT_DATA_NAME, SORT_DATA_ID,
+    MODAL_IS_OPEN,
+    ADD_NEW_ITEM,
 } from './consts.js';
 
 export const getData = () => {
@@ -174,5 +176,21 @@ export const sortDataName =()=> {
 export const sortDataID=()=> {
     return {
         type: SORT_DATA_ID,
+    }
+};
+
+export const ModalIsOpen =()=> {
+    return {
+        type: MODAL_IS_OPEN,
+    }
+};
+
+export const AddNewItem =(nameRef, ageRef, telephoneRef, emailRef)=> {
+    return {
+        type: ADD_NEW_ITEM,
+        name: nameRef,
+        age: ageRef,
+        telephone: telephoneRef,
+        email: emailRef,
     }
 };

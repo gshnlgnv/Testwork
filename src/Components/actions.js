@@ -4,6 +4,7 @@ import {
     ROW_DELETE_FAIL, ROW_DELETE_PENDING, ROW_DELETE_SUCCESS,
     IS_EDIT_ROW, EDIT_ROW_MESSAGE,
     SAVE_CHANGES_PENDING, SAVE_CHANGES_SUCCESS, SAVE_CHANGES_ERROR,
+    SORT_DATA_NAME, SORT_DATA_ID,
 } from './consts.js';
 
 export const getData = () => {
@@ -163,3 +164,15 @@ function saveChangesFail(error) {
         payload: error,
     }
 }
+
+export const sortDataName =()=> {
+    return {
+        type: SORT_DATA_NAME,
+    }
+};
+
+export const sortDataID=()=> {
+    return {
+        type: SORT_DATA_ID,
+    }
+};

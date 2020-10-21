@@ -1,59 +1,30 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './Table.css';
 import {connect} from 'react-redux';
-import {deleteRow, isEdit, updateInputRow, saveChanges} from './actions';
+import {deleteRow, isEdit, updateInputRow, saveChanges, sortDataName, sortDataID} from './actions';
 import {bindActionCreators} from "redux";
 
 function Table(props) {
+    const collectingDataForUpload = (idNumber) => {
+        let arrToServer = [];
 
-    //TODO : УБРАТЬ УЖАСНЫЙ КОЛХОЗ !!!!!
-    // проверить как можно обыграть сбор данных для отправки
-    // и проверить саму отправку )
-
-    const collectingDataForUpload =(idNumber) => {
-        let objToSend = [];
-
-        props.data.map( item => {
+        props.data.map(item => {
             const [id] = item;
             if (id.value === idNumber) {
-
-                for (let i = 0; i < item.length ; i++) {
-                    console.log("item.value", item[i].value);
-                    objToSend.push(item[i].value);
+                for (let i = 0; i < item.length; i++) {
+                    arrToServer.push(item[i].value);
                 }
-                return objToSend;
             }
-            return objToSend;
         });
-        return objToSend;
+        return arrToServer;
     };
 
-
     const editButton = (idNumber) => {
-       // let objToSend = [];
-
         if (props.isEditRow) {
             return <button onClick={() => {
+                const arrDataUpdateToServer = collectingDataForUpload(idNumber);
                 props.isEdit();
-
-            //     props.data.map( item => {
-            //         const [id] = item;
-            //         if (id.value === idNumber) {
-            //
-            //             for (let i = 0; i < item.length ; i++) {
-            //                 console.log("item.value", item[i].value);
-            //                 objToSend.push(item[i].value);
-            //             }
-            //             return objToSend;
-            //         }
-            //
-            //         props.saveChanges(objToSend[0], objToSend[1], objToSend[2], objToSend[3], objToSend[4]);
-            //
-            // })
-
-                const a = collectingDataForUpload(idNumber);
-                props.saveChanges(a[0], a[1], a[2], a[3], a[4]);
-
+                props.saveChanges(arrDataUpdateToServer[0], arrDataUpdateToServer[1], arrDataUpdateToServer[2], arrDataUpdateToServer[3], arrDataUpdateToServer[4]);
             }}>
                 save
             </button>
@@ -66,53 +37,57 @@ function Table(props) {
     };
 
     return (
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Delete</th>
-                <th>Edit</th>
-            </tr>
-            </thead>
-            <tbody>
-            {props.data.map(row => (
-                <tr key={row[0].value}>
-                    {row.map(col => {
-                            if (props.isEditRow && col.field !== "ID") {
-                                let inputEditRef = React.createRef();
-                                if (row[0].value === props.idToEdit) {
-                                    return <td key={col.value}>
-                                        <input
-                                            autoFocus
-                                            defaultValue={col.value}
-                                            type="text"
-                                            ref={inputEditRef}
-                                            onChange={() => props.updateInputRow(props.idToEdit, col.field, inputEditRef.current.value)}
-                                        />
-                                    </td>
-                                }
-                            }
-                            return <td key={col.value}>{col.value}</td>
-                        }
-                    )}
-                    <td>
-                        <button onClick={() => {
-                            props.deleteRow(row[0].value);
-                        }}>
-                            delete
-                        </button>
-                    </td>
-                    <td>
-                        {editButton(row[0].value)}
-                    </td>
+        <div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th onClick={() => props.sortDataID()}>ID</th>
+                    <th onClick={() => props.sortDataName()}>Name</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
                 </tr>
-            ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {props.data.map(row => (
+                    <tr key={row[0].value}>
+                        {row.map(col => {
+                                if (props.isEditRow && col.field !== "ID") {
+                                    let inputEditRef = React.createRef();
+                                    if (row[0].value === props.idToEdit) {
+                                        return <td key={col.value}>
+                                            <input
+                                                autoFocus
+                                                defaultValue={col.value}
+                                                type="text"
+                                                ref={inputEditRef}
+                                                onChange={() => props.updateInputRow(props.idToEdit, col.field, inputEditRef.current.value)}
+                                            />
+                                        </td>
+                                    }
+                                }
+                                return <td key={col.value}>{col.value}</td>
+                            }
+                        )}
+                        <td>
+                            <button onClick={() => {
+                                props.deleteRow(row[0].value);
+                            }}>
+                                delete
+                            </button>
+                        </td>
+                        <td>
+                            {editButton(row[0].value)}
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </div>
+
     )
 }
 
@@ -123,7 +98,16 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({deleteRow, isEdit, updateInputRow, saveChanges}, dispatch)
+    return bindActionCreators(
+        {
+            deleteRow,
+            isEdit,
+            updateInputRow,
+            saveChanges,
+            sortDataName,
+            sortDataID
+        },
+        dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

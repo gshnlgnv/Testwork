@@ -10,3 +10,7 @@ export const EDIT_ROW_MESSAGE = "EDIT_ROW_MESSAGE";
 export const SAVE_CHANGES_PENDING = "SAVE_CHANGES_PENDING";
 export const SAVE_CHANGES_SUCCESS = "SAVE_CHANGES_SUCCESS";
 export const SAVE_CHANGES_ERROR = "SAVE_CHANGES_ERROR";
+export const SORT_DATA_NAME = "SORT_DATA_NAME";
+export const SORT_DATA_ID = "SORT_DATA_ID";
+export const ASC = "ASC";
+export const DESC = "DESC";

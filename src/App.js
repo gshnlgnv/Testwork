@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {getData} from "./Components/actions.js";
 import Table from "./Components/Table.js";
 
+
 function App(props) {
     const showTable = () => {
         if (props.data.length > 0) {

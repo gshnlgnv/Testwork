@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a4bc24d-de8c-41d8-938b-6a2d7522d01b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Components/AddNew.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/AddNew.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AddNew.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Table.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Table.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Table.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/consts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/consts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/dataReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/dataReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/pics/arrow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +40,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TODO_no2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../testworkqt" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
@@ -65,7 +63,7 @@
       <workItem from="1602700379857" duration="20243000" />
       <workItem from="1602869167680" duration="51480000" />
       <workItem from="1603197924055" duration="24903000" />
-      <workItem from="1603268436624" duration="13101000" />
+      <workItem from="1603268436624" duration="25593000" />
     </task>
     <servers />
   </component>
@@ -73,10 +71,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="165" y="167" key="FileChooserDialogImpl" timestamp="1603276501138">
+    <state x="165" y="167" key="FileChooserDialogImpl" timestamp="1603305473157">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="165" y="167" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1603202370399" />
-    <state x="165" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1603276501138" />
+    <state x="165" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1603305473157" />
   </component>
 </project>

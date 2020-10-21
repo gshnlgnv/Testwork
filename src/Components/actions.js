@@ -6,7 +6,7 @@ import {
     SAVE_CHANGES_PENDING, SAVE_CHANGES_SUCCESS, SAVE_CHANGES_ERROR,
     SORT_DATA_NAME, SORT_DATA_ID,
     MODAL_IS_OPEN,
-    ADD_NEW_ITEM,
+    ADD_NEW_ITEM_FAIL, ADD_NEW_ITEM_PENDING, ADD_NEW_ITEM_SUCCESS
 } from './consts.js';
 
 export const getData = () => {
@@ -105,15 +105,6 @@ export const isEdit = (id) => {
     }
 };
 
-export const updateInputRow =(id, column, newInputMessage)=> {
-    return {
-        type: EDIT_ROW_MESSAGE,
-        newMessage: newInputMessage,
-        id: id,
-        column: column,
-    }
-};
-
 export const saveChanges = (id, name, age, phone, email) => {
     return dispatch => {
         dispatch(saveChangesPending());
@@ -135,11 +126,12 @@ export const saveChanges = (id, name, age, phone, email) => {
                 }
                 return response.json()
             })
-            .then(result => {
+            .then(data => {
                 if (data.result === "ok") {
-                    dispatch(saveChangesSuccess( newData )) // ??
+                    dispatch(saveChangesSuccess(id, name, age, phone, email)) // ??
+                } else {
+                    throw new Error("Error");
                 }
-                throw new Error("Error");
             })
             .catch(error => {
                 dispatch(saveChangesFail(error));
@@ -153,10 +145,12 @@ function saveChangesPending() {
     }
 }
 
-function saveChangesSuccess(newData) {  // ??
+function saveChangesSuccess(newInputMessage, id, column) {  // ??
     return {
         type: SAVE_CHANGES_SUCCESS,
-        payload: newData, // ??
+        newMessage: newInputMessage,
+        id: id,
+        column: column,
     }
 }
 
@@ -167,30 +161,85 @@ function saveChangesFail(error) {
     }
 }
 
-export const sortDataName =()=> {
+export const updateInputRow = (id, column, newInputMessage) => {
+    return {
+        type: EDIT_ROW_MESSAGE,
+        newMessage: newInputMessage,
+        id: id,
+        column: column,
+    }
+};
+
+export const sortDataName = () => {
     return {
         type: SORT_DATA_NAME,
     }
 };
 
-export const sortDataID=()=> {
+export const sortDataID = () => {
     return {
         type: SORT_DATA_ID,
     }
 };
 
-export const ModalIsOpen =()=> {
+export const ModalIsOpen = () => {
     return {
         type: MODAL_IS_OPEN,
     }
 };
 
-export const AddNewItem =(nameRef, ageRef, telephoneRef, emailRef)=> {
+export const AddNewItem = (name, age, phone, email) => {
+    return dispatch => {
+        dispatch(AddNewItemPending());
+        fetch(链接, {
+            method: "POST",
+            body: new URLSearchParams({
+                method: "add",
+                name,
+                age,
+                phone,
+                email
+            }).toString(),
+            headers: new Headers({"Content-Type": "application/x-www-form-urlencoded"})
+        })
+            .then(response => {
+                if (response.error) {
+                    throw (response.error);
+                }
+                return response.json()
+            })
+            .then(data => {
+                if (data.result === "ok") {
+                    dispatch(AddNewItemSuccess(name, age, phone, email))
+                } else {
+                    throw new Error("Error");
+                }
+            })
+            .catch(error => {
+                dispatch(AddNewItemFail(error));
+            })
+    }
+};
+
+function AddNewItemPending() {
     return {
-        type: ADD_NEW_ITEM,
+        type: ADD_NEW_ITEM_PENDING,
+    }
+}
+
+function AddNewItemSuccess(nameRef, ageRef, telephoneRef, emailRef) {
+    return {
+        type: ADD_NEW_ITEM_SUCCESS,
         name: nameRef,
         age: ageRef,
         telephone: telephoneRef,
         email: emailRef,
     }
-};
+}
+
+function AddNewItemFail(error) {
+    return {
+        type: ADD_NEW_ITEM_FAIL,
+        payload: error,
+    }
+}

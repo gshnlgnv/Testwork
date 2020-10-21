@@ -1,13 +1,21 @@
 import React from 'react';
 import './Table.css';
 import {connect} from 'react-redux';
-import {deleteRow, isEdit, updateInputRow, saveChanges, sortDataName, sortDataID} from './actions';
+import {deleteRow, isEdit, saveChanges, sortDataName, sortDataID, updateInputRow} from './actions';
 import {bindActionCreators} from "redux";
 import AddNew from '../Components/AddNew';
+import arrow from '../Components/arrow.png';
+import {ASC, DESC} from './consts'
 
 function Table(props) {
-
-    console.log("table props.data", props.data);
+    const arrowDirection = () => {
+        if (props.sorting === ASC) {
+            return "arrowASC"
+        }
+        if (props.sorting === DESC) {
+            return "arrowDESC"
+        }
+    };
 
     const collectingDataForUpload = (idNumber) => {
         let arrToServer = [];
@@ -27,8 +35,8 @@ function Table(props) {
         if (props.isEditRow) {
             return <button onClick={() => {
                 const arrDataUpdateToServer = collectingDataForUpload(idNumber);
-                props.isEdit();
                 props.saveChanges(arrDataUpdateToServer[0], arrDataUpdateToServer[1], arrDataUpdateToServer[2], arrDataUpdateToServer[3], arrDataUpdateToServer[4]);
+                props.isEdit();
             }}>
                 save
             </button>
@@ -43,6 +51,11 @@ function Table(props) {
     return (
         <div>
             <AddNew/>
+            <img
+                src={arrow}
+                alt="arrow"
+                className={arrowDirection()}
+            />
             <table>
                 <thead>
                 <tr>
@@ -71,7 +84,9 @@ function Table(props) {
                                                 defaultValue={col.value}
                                                 type="text"
                                                 ref={inputEditRef}
-                                                onChange={() => props.updateInputRow(props.idToEdit, col.field, inputEditRef.current.value)}
+                                                onChange={() => {
+                                                    props.updateInputRow(props.idToEdit, col.field, inputEditRef.current.value);
+                                                }}
                                             />
                                         </td>
                                     }
@@ -94,7 +109,6 @@ function Table(props) {
                 </tbody>
             </table>
         </div>
-
     )
 }
 
@@ -102,6 +116,7 @@ const mapStateToProps = (state) => ({
     data: state.dataReducer.data,
     isEditRow: state.dataReducer.isEdit,
     idToEdit: state.dataReducer.idToEdit,
+    sorting: state.dataReducer.sorting,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -109,10 +124,10 @@ const mapDispatchToProps = (dispatch) => {
         {
             deleteRow,
             isEdit,
-            updateInputRow,
             saveChanges,
             sortDataName,
-            sortDataID
+            sortDataID,
+            updateInputRow
         },
         dispatch)
 };

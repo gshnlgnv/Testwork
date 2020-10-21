@@ -5,7 +5,8 @@ import {
     SORT_DATA_NAME, SORT_DATA_ID,
     ASC, DESC,
     MODAL_IS_OPEN,
-    ADD_NEW_ITEM,
+    ADD_NEW_ITEM, ADD_NEW_ITEM_SUCCESS,
+    SAVE_CHANGES_SUCCESS,
 } from './consts';
 
 const initialState = {
@@ -82,6 +83,26 @@ export const dataReducer = (state = initialState, action) => {
                 isEdit: (state.isEdit) ? false : true,
                 idToEdit: action.payload,
             };
+        case SAVE_CHANGES_SUCCESS:
+
+            console.log(action.id);
+            console.log(action.column);
+            console.log(action.newMessage);
+
+            return {
+                ...state,
+                data: state.data.map(item => {
+                    const [id] = item;
+                    if (id.value === action.id) {
+                        item.map(obj => {
+                            if (obj.field === action.column) {
+                                return obj.value = action.newMessage;
+                            }
+                        })
+                    }
+                    return item;
+                }),
+            };
         case EDIT_ROW_MESSAGE:
             return {
                 ...state,
@@ -114,7 +135,7 @@ export const dataReducer = (state = initialState, action) => {
                 ...state,
                 modalIsOpen: state.modalIsOpen ? false : true,
             };
-        case ADD_NEW_ITEM:
+        case ADD_NEW_ITEM_SUCCESS:
             const newPerson = [[
                 {field: "ID", value: Date.now(), type: "integer"},
                 {field: "Name", value: action.name, type: "string"},
@@ -122,7 +143,6 @@ export const dataReducer = (state = initialState, action) => {
                 {field: "Phone", value: action.telephone, type: "string"},
                 {field: "E-mail", value: action.email, type: "string"},
                 ]];
-
             return {
                ...state,
                 data: state.data.concat(newPerson),

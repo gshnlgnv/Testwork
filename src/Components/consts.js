@@ -16,3 +16,7 @@ export const ASC = "ASC";
 export const DESC = "DESC";
 export const MODAL_IS_OPEN ="MODAL_IS_OPEN";
 export const ADD_NEW_ITEM = "ADD_NEW_ITEM";
+export const ADD_NEW_ITEM_FAIL ="ADD_NEW_ITEM_FAIL";
+export const ADD_NEW_ITEM_PENDING = "ADD_NEW_ITEM_PENDING";
+export const ADD_NEW_ITEM_SUCCESS = "ADD_NEW_ITEM_SUCCESS";
+

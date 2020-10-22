@@ -4,19 +4,8 @@ import {connect} from 'react-redux';
 import {deleteRow, isEdit, saveChanges, sortDataName, sortDataID, updateInputRow} from './actions';
 import {bindActionCreators} from "redux";
 import AddNew from '../Components/AddNew';
-import arrow from '../Components/arrow.png';
-import {ASC, DESC} from './consts'
 
 function Table(props) {
-    const arrowDirection = () => {
-        if (props.sorting === ASC) {
-            return "arrowASC"
-        }
-        if (props.sorting === DESC) {
-            return "arrowDESC"
-        }
-    };
-
     const collectingDataForUpload = (idNumber) => {
         let arrToServer = [];
 
@@ -33,17 +22,21 @@ function Table(props) {
 
     const editButton = (idNumber) => {
         if (props.isEditRow) {
-            return <button onClick={() => {
+            return <button
+                className="button save"
+                onClick={() => {
                 const arrDataUpdateToServer = collectingDataForUpload(idNumber);
                 props.saveChanges(arrDataUpdateToServer[0], arrDataUpdateToServer[1], arrDataUpdateToServer[2], arrDataUpdateToServer[3], arrDataUpdateToServer[4]);
                 props.isEdit();
             }}>
-                save
+                Сохранить
             </button>
         } else {
-            return <button onClick={() => {
-                props.isEdit(idNumber);
-            }}>edit
+            return <button
+                className="button edit"
+                onClick={() => props.isEdit(idNumber)}
+            >
+                И
             </button>
         }
     };
@@ -51,21 +44,16 @@ function Table(props) {
     return (
         <div>
             <AddNew/>
-            <img
-                src={arrow}
-                alt="arrow"
-                className={arrowDirection()}
-            />
             <table>
                 <thead>
                 <tr>
                     <th onClick={() => props.sortDataID()}>ID</th>
-                    <th onClick={() => props.sortDataName()}>Name</th>
-                    <th>Age</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
+                    <th onClick={() => props.sortDataName()}>Имя</th>
+                    <th>Возраст</th>
+                    <th>Телефон</th>
+                    <th>Почта</th>
+                    <th>Удалить</th>
+                    <th>Изменить</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -95,10 +83,11 @@ function Table(props) {
                             }
                         )}
                         <td>
-                            <button onClick={() => {
-                                props.deleteRow(row[0].value);
-                            }}>
-                                delete
+                            <button
+                                className="button delete"
+                                onClick={() => props.deleteRow(row[0].value)}
+                            >
+                                У
                             </button>
                         </td>
                         <td>

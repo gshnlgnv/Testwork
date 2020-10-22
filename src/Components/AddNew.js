@@ -21,31 +21,55 @@ function AddNew(props) {
 
     return (
         <div>
-            <button onClick={() => props.ModalIsOpen()}>Add new Item</button>
-            <Modal isOpen={props.modal}
-                   ariaHideApp={false}
-                   contentLabel="Selected Option">
-                <div>
-                    Add some new info
-                </div>
+            <button
+                className="button"
+                onClick={() => props.ModalIsOpen()}
+            >
+                Добавить
+            </button>
+            <Modal
+                isOpen={props.modal}
+                ariaHideApp={false}
+                contentLabel="Selected Option"
+            >
                 <div>
                     <div>
-                        <input placeholder="Enter name" type="text" ref={nameRef}/>
-                        <input placeholder="Enter age" type="number" ref={ageRef}/>
-                        <input placeholder="Enter telephone no" type="tel" ref={telephoneRef}/>
-                        <input placeholder="Enter e-mail" type="email" ref={emailRef}/>
-                    </div>
-                </div>
-                <div>
-                    <button onClick={() => {
-                        checkingInputs();
-                    }}>
-                        Add New
-                    </button>
-                </div>
+                        <div>
+                            <h3>Добавить новый элемент</h3>
+                        </div>
 
-                <div>
-                    <button onClick={() => props.ModalIsOpen()}>Close window</button>
+                    </div>
+                    <div className="inputs_layout">
+                        <div>
+                            <input placeholder="Введите имя" type="text" ref={nameRef}/>
+                        </div>
+                        <div>
+                            <input placeholder="Введите возраст" type="number" ref={ageRef}/>
+                        </div>
+                        <div>
+                            <input placeholder="Введите номер телефона" type="tel" ref={telephoneRef}/>
+                        </div>
+                        <div>
+                            <input placeholder="Введите e-mail" type="email" ref={emailRef}/>
+                        </div>
+                    </div>
+                    <div>
+                        <button
+                            className="button"
+                            onClick={() => {
+                                checkingInputs();
+                            }}>
+                            Добавить
+                        </button>
+                        <div>
+                            <button
+                                className="button delete"
+                                onClick={() => props.ModalIsOpen()}
+                            >
+                                Закрыть
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </Modal>
         </div>

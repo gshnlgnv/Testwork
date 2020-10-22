@@ -5,7 +5,7 @@ import {
     SORT_DATA_NAME, SORT_DATA_ID,
     ASC, DESC,
     MODAL_IS_OPEN,
-    ADD_NEW_ITEM, ADD_NEW_ITEM_SUCCESS,
+    ADD_NEW_ITEM_SUCCESS,
     SAVE_CHANGES_SUCCESS,
 } from './consts';
 
@@ -84,11 +84,6 @@ export const dataReducer = (state = initialState, action) => {
                 idToEdit: action.payload,
             };
         case SAVE_CHANGES_SUCCESS:
-
-            console.log(action.id);
-            console.log(action.column);
-            console.log(action.newMessage);
-
             return {
                 ...state,
                 data: state.data.map(item => {

@@ -11,7 +11,6 @@ import {
 
 const initialState = {
     data: [],
-    actionChecking: null,
     isEdit: false,
     idToEdit: null,
     sorting: null,
@@ -131,8 +130,15 @@ export const dataReducer = (state = initialState, action) => {
                 modalIsOpen: state.modalIsOpen ? false : true,
             };
         case ADD_NEW_ITEM_SUCCESS:
+            const IDarr = state.data.map( item => {
+                const [id] = item;
+                return id.value;
+            });
+
+            const nextID = Math.max(...IDarr) + 1;
+
             const newPerson = [[
-                {field: "ID", value: Date.now(), type: "integer"},
+                {field: "ID", value: nextID, type: "integer"},
                 {field: "Name", value: action.name, type: "string"},
                 {field: "Age", value: +action.age, type: "integer"},
                 {field: "Phone", value: action.telephone, type: "string"},

@@ -60,9 +60,7 @@ function Table(props) {
                 {props.data.map(row => (
                     <tr key={row[0].value}>
                         {row.map(col => {
-
                                 if (props.isEditRow && col.field !== "ID") {
-
                                     let inputEditRef = React.createRef();
 
                                     if (row[0].value === props.idToEdit) {

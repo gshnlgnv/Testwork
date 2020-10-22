@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2a4bc24d-de8c-41d8-938b-6a2d7522d01b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Components/AddNew.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/AddNew.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/AddNew.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Table.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Table.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Table.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Table.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/dataReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/dataReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +59,7 @@
       <workItem from="1602700379857" duration="20243000" />
       <workItem from="1602869167680" duration="51480000" />
       <workItem from="1603197924055" duration="24903000" />
-      <workItem from="1603268436624" duration="32197000" />
+      <workItem from="1603268436624" duration="33944000" />
     </task>
     <servers />
   </component>

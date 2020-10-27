@@ -63,6 +63,8 @@ function Table(props) {
                                 if (props.isEditRow && col.field !== "ID") {
                                     let inputEditRef = React.createRef();
 
+                                    //todo: map "save" button only for chosen ID
+
                                     if (row[0].value === props.idToEdit) {
                                         return <td key={col.value}>
                                             <input
@@ -77,7 +79,11 @@ function Table(props) {
                                         </td>
                                     }
                                 }
-                                return <td key={col.value}>{col.value}</td>
+                                return (
+                                    <td key={col.value}>{col.value}</td>
+
+                                )
+
                             }
                         )}
                         <td>

@@ -22,19 +22,33 @@ function Table(props) {
 
     const editButton = (idNumber) => {
         if (props.isEditRow) {
+            if (idNumber === props.idToEdit) {
+                return <button
+                    className="button save"
+                    onClick={() => {
+                        const arrDataUpdateToServer = collectingDataForUpload(idNumber);
+                        props.saveChanges(arrDataUpdateToServer[0], arrDataUpdateToServer[1], arrDataUpdateToServer[2], arrDataUpdateToServer[3], arrDataUpdateToServer[4]);
+                        props.isEdit();
+                    }}>
+                    Сохранить
+                </button>
+            }
+
             return <button
-                className="button save"
+                className="button edit"
                 onClick={() => {
-                const arrDataUpdateToServer = collectingDataForUpload(idNumber);
-                props.saveChanges(arrDataUpdateToServer[0], arrDataUpdateToServer[1], arrDataUpdateToServer[2], arrDataUpdateToServer[3], arrDataUpdateToServer[4]);
-                props.isEdit();
-            }}>
-                Сохранить
+                    props.isEdit(idNumber)
+                }}
+            >
+                И
             </button>
+
         } else {
             return <button
                 className="button edit"
-                onClick={() => props.isEdit(idNumber)}
+                onClick={() => {
+                    props.isEdit(idNumber)
+                }}
             >
                 И
             </button>
@@ -63,8 +77,6 @@ function Table(props) {
                                 if (props.isEditRow && col.field !== "ID") {
                                     let inputEditRef = React.createRef();
 
-                                    //todo: map "save" button only for chosen ID
-
                                     if (row[0].value === props.idToEdit) {
                                         return <td key={col.value}>
                                             <input
@@ -81,9 +93,7 @@ function Table(props) {
                                 }
                                 return (
                                     <td key={col.value}>{col.value}</td>
-
                                 )
-
                             }
                         )}
                         <td>
@@ -97,6 +107,7 @@ function Table(props) {
                         <td>
                             {editButton(row[0].value)}
                         </td>
+
                     </tr>
                 ))}
                 </tbody>
